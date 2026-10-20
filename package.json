@@ -2,7 +2,7 @@
   "name": "claude-theme",
   "displayName": "Claude Theme",
   "description": "Warm Claude-style dark theme for VS Code, plus a matching style for Markdown Preview Enhanced.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "whtbl3",
   "license": "MIT",
   "repository": {

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- Màu cú pháp (tông tối) và màu trạng thái chuyển sang bảng Nord Aurora: keyword `#d08770`, hàm `#ebcb8b`, string `#a3be8c`, số `#b48ead`, lỗi / dòng xóa `#bf616a`. Áp dụng cho theme, terminal và code block trong preview MPE.
+
 ## 0.1.0
 
 - Theme **Claude Dark**: nền than ấm, chữ kem, màu nhấn cam `#d97757`, màu cú pháp tông ấm.
