@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Số trở lại màu cam `#e0b07a` của bộ màu Claude, tách khỏi hằng số (`true`, `NULL`… vẫn là `#b48ead`). Áp dụng cho theme và code block trong preview MPE (tông tối).
+
 ## 0.2.0
 
 - Màu cú pháp (tông tối) và màu trạng thái chuyển sang bảng Nord. Áp dụng cho theme, terminal và code block trong preview MPE.

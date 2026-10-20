@@ -239,7 +239,14 @@
     },
     {
       "scope": [
-        "constant.numeric",
+        "constant.numeric"
+      ],
+      "settings": {
+        "foreground": "#e0b07a"
+      }
+    },
+    {
+      "scope": [
         "constant.language",
         "constant.character",
         "constant.other",
@@ -427,6 +434,7 @@
     "selfParameter": {
       "foreground": "#bf616a",
       "italic": true
-    }
+    },
+    "number": "#e0b07a"
   }
 }

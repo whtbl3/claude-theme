@@ -37,7 +37,8 @@
   --md-hl-comment: #7c7368;
   --md-hl-keyword: #d08770;
   --md-hl-string: #a3be8c;
-  --md-hl-number: #b48ead;
+  --md-hl-number: #e0b07a;
+  --md-hl-constant: #b48ead;
   --md-hl-function: #ebcb8b;
   --md-hl-type: #8fbcbb;
   --md-hl-variable: #d6bfa0;
@@ -73,6 +74,7 @@
   --md-hl-keyword: #b3502a;
   --md-hl-string: #5c7a36;
   --md-hl-number: #9c5d24;
+  --md-hl-constant: #9c5d24;
   --md-hl-function: #8a6a16;
   --md-hl-type: #2c7a6e;
   --md-hl-variable: #845c38;
@@ -229,7 +231,8 @@ html body,
     &.comment, &.prolog, &.doctype, &.cdata { color: var(--md-hl-comment); font-style: italic; }
     &.keyword, &.tag, &.selector, &.important, &.atrule { color: var(--md-hl-keyword); }
     &.string, &.char, &.regex, &.attr-value, &.inserted { color: var(--md-hl-string); }
-    &.number, &.boolean, &.constant, &.symbol { color: var(--md-hl-number); }
+    &.number { color: var(--md-hl-number); }
+    &.boolean, &.constant, &.symbol { color: var(--md-hl-constant); }
     &.function, &.function-name { color: var(--md-hl-function); }
     &.class-name, &.builtin, &.type { color: var(--md-hl-type); }
     &.variable, &.parameter { color: var(--md-hl-variable); }
