@@ -1,4 +1,7 @@
 {
+  "workbench.editorAssociations": {
+    "*.md": "markdown-preview-enhanced"
+  },
   "markdown-preview-enhanced.previewTheme": "vscode.css",
   "markdown-preview-enhanced.codeBlockTheme": "vscode.css",
   "workbench.colorCustomizations": {

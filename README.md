@@ -5,7 +5,7 @@ Tông màu kiểu Claude cho VS Code và Markdown Preview Enhanced (MPE): nền 
 | Thư mục | Nội dung |
 | --- | --- |
 | `mpe/style.less` | Style cho preview của MPE. Font Source Sans 3 / Source Serif 4 / JetBrains Mono, tải từ Google Fonts. Khi offline thì dùng font dự phòng có đủ dấu tiếng Việt. |
-| `vscode/settings.json` | Màu giao diện, màu cú pháp và semantic token, phủ lên theme **Dark Modern**. Có kèm 2 setting của MPE. |
+| `vscode/settings.json` | Màu giao diện, màu cú pháp và semantic token, phủ lên theme **Dark Modern**. Có kèm các setting của MPE, trong đó có setting cho file `.md` mặc định mở bằng MPE (để code block dùng màu của `style.less`). |
 | `install.sh` | Copy `mpe/style.less` vào thư mục cấu hình của MPE. File cũ được sao lưu trước khi ghi đè. |
 
 Bảng màu được chuyển từ extension [Claude Style Markdown Preview](https://github.com/ibank/claude-style-markdown-preview).
