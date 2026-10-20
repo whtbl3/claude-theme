@@ -39,9 +39,11 @@
   --md-hl-string: #a3be8c;
   --md-hl-number: #b48ead;
   --md-hl-function: #ebcb8b;
-  --md-hl-type: #87b8ad;
+  --md-hl-type: #8fbcbb;
   --md-hl-variable: #d6bfa0;
   --md-hl-meta: #948d84;
+  --md-hl-operator: #81a1c1;
+  --md-hl-property: #88c0d0;
 }
 
 .claude-light() {
@@ -75,6 +77,8 @@
   --md-hl-type: #2c7a6e;
   --md-hl-variable: #845c38;
   --md-hl-meta: #978f82;
+  --md-hl-operator: #978f82;
+  --md-hl-property: #845c38;
 }
 
 /* Dark by default; follow VS Code when it is a light theme. */
@@ -228,8 +232,10 @@ html body,
     &.number, &.boolean, &.constant, &.symbol { color: var(--md-hl-number); }
     &.function, &.function-name { color: var(--md-hl-function); }
     &.class-name, &.builtin, &.type { color: var(--md-hl-type); }
-    &.variable, &.property, &.attr-name, &.parameter { color: var(--md-hl-variable); }
-    &.punctuation, &.operator, &.entity, &.url { color: var(--md-hl-meta); background: none; }
+    &.variable, &.parameter { color: var(--md-hl-variable); }
+    &.property, &.attr-name { color: var(--md-hl-property); }
+    &.punctuation, &.entity, &.url { color: var(--md-hl-meta); background: none; }
+    &.operator { color: var(--md-hl-operator); background: none; }
     &.deleted { color: var(--md-tone-danger); }
   }
 
