@@ -1,0 +1,307 @@
+/* Claude-style theme for Markdown Preview Enhanced
+   Ported from ibank.claude-style-markdown-preview (claude.css).
+   Docs: https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+@import (css) url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap');
+
+/* Fallback khi offline: chỉ dùng font Windows có đủ dấu tiếng Việt
+   (Georgia thiếu ặ ữ ộ… nên bị bỏ). */
+@font-sans:  "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+@font-serif: "Source Serif 4", "Sitka Text", Cambria, "Times New Roman", serif;
+@font-mono:  "JetBrains Mono", Consolas, ui-monospace, monospace;
+
+/* ---------- Palettes ---------- */
+.claude-dark() {
+  --md-bg: #1a1a1a;
+  --md-surface: #1e1d1b;
+  --md-text: #e8e6e3;
+  --md-text-dim: #a8a29e;
+  --md-heading: #f4f1ec;
+  --md-border: #2e2c28;
+  --md-border-soft: #232220;
+  --md-hover: rgba(255, 255, 255, 0.04);
+  --md-accent: #d97757;
+  --md-accent-bg: rgba(217, 119, 87, 0.12);
+  --md-link: #e8a87c;
+  --md-link-underline: rgba(232, 168, 124, 0.3);
+  --md-inline-code-bg: rgba(217, 119, 87, 0.14);
+  --md-inline-code-fg: #e8a87c;
+  --md-code-bg: #131210;
+  --md-code-chrome-bg: rgba(255, 255, 255, 0.018);
+  --md-quote-bg: rgba(217, 119, 87, 0.06);
+  --md-selection: rgba(217, 119, 87, 0.32);
+  --md-tone-note: #7eb6c7; --md-tone-note-bg: rgba(126, 182, 199, 0.08);
+  --md-tone-tip: #8ec081;  --md-tone-tip-bg: rgba(142, 192, 129, 0.08);
+  --md-tone-warn: #e8a87c; --md-tone-warn-bg: rgba(232, 168, 124, 0.10);
+  --md-tone-danger: #d97757; --md-tone-danger-bg: rgba(217, 119, 87, 0.10);
+  --md-hl-comment: #7c7368;
+  --md-hl-keyword: #ea9a78;
+  --md-hl-string: #a7bd86;
+  --md-hl-number: #e0b07a;
+  --md-hl-function: #f0cd96;
+  --md-hl-type: #87b8ad;
+  --md-hl-variable: #d6bfa0;
+  --md-hl-meta: #948d84;
+}
+
+.claude-light() {
+  --md-bg: #faf9f7;
+  --md-surface: #f3eee5;
+  --md-text: #2a2a2a;
+  --md-text-dim: #6b6660;
+  --md-heading: #1a1612;
+  --md-border: #d8d4cc;
+  --md-border-soft: #e6e1d8;
+  --md-hover: rgba(0, 0, 0, 0.035);
+  --md-accent: #b85a35;
+  --md-accent-bg: rgba(184, 90, 53, 0.10);
+  --md-link: #b85a35;
+  --md-link-underline: rgba(184, 90, 53, 0.32);
+  --md-inline-code-bg: rgba(184, 90, 53, 0.10);
+  --md-inline-code-fg: #b85a35;
+  --md-code-bg: #f0ebe0;
+  --md-code-chrome-bg: rgba(0, 0, 0, 0.025);
+  --md-quote-bg: rgba(217, 119, 87, 0.07);
+  --md-selection: rgba(184, 90, 53, 0.22);
+  --md-tone-note: #3c7e92; --md-tone-note-bg: rgba(60, 126, 146, 0.06);
+  --md-tone-tip: #557e44;  --md-tone-tip-bg: rgba(85, 126, 68, 0.06);
+  --md-tone-warn: #b85a35; --md-tone-warn-bg: rgba(184, 90, 53, 0.06);
+  --md-tone-danger: #a8332b; --md-tone-danger-bg: rgba(168, 51, 43, 0.08);
+  --md-hl-comment: #a39a8c;
+  --md-hl-keyword: #b3502a;
+  --md-hl-string: #5c7a36;
+  --md-hl-number: #9c5d24;
+  --md-hl-function: #8a6a16;
+  --md-hl-type: #2c7a6e;
+  --md-hl-variable: #845c38;
+  --md-hl-meta: #978f82;
+}
+
+/* Dark by default; follow VS Code when it is a light theme. */
+html, body { .claude-dark(); }
+body.vscode-light, body.vscode-high-contrast-light { .claude-light(); }
+
+html body,
+.preview-container,
+.mume.markdown-preview,
+.crossnote.markdown-preview {
+  background: var(--md-bg) !important;
+}
+
+/* ---------- Content ---------- */
+.markdown-preview.markdown-preview {
+  font-family: @font-sans;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--md-text);
+  background: var(--md-bg);
+  /* Căn giữa bằng padding thay vì max-width + margin auto (không ăn trong
+     preview MPE): khung preview rộng full, padding hai bên tự co để cột chữ
+     tối đa 800px nằm giữa; màn hẹp thì giữ tối thiểu 24px. */
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  /* ~"…" để LESS không tự tính max() lúc compile */
+  padding: 48px ~"max(24px, calc((100% - 800px) / 2))" 96px !important;
+  -webkit-font-smoothing: antialiased;
+
+  ::selection { background: var(--md-selection); }
+
+  /* Theme preview "vscode.css" làm mờ một số phần tử bằng opacity → bỏ */
+  h6, del, s, blockquote { opacity: 1; }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: @font-serif;
+    color: var(--md-heading);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.012em;
+  }
+  h1 {
+    font-size: 2.4em;
+    font-weight: 650;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5em;
+    padding-bottom: 0.45em;
+    border-bottom: 1px solid var(--md-border-soft);
+  }
+  h2 {
+    font-size: 1.55em;
+    margin: 2.2em 0 0.7em;
+    padding-bottom: 0.35em;
+    border-bottom: 1px solid var(--md-border-soft);
+  }
+  h3 { font-size: 1.22em; margin: 1.8em 0 0.6em; border: none; }
+  h4 { font-size: 1.05em; margin: 1.5em 0 0.5em; }
+  h5 {
+    font-family: @font-sans;
+    font-size: 0.95em;
+    color: var(--md-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  h6 { font-family: @font-sans; font-size: 0.88em; color: var(--md-text-dim); }
+
+  p { margin: 0.9em 0; }
+
+  a {
+    color: var(--md-link);
+    text-decoration: none;
+    border-bottom: 1px solid var(--md-link-underline);
+    &:hover { border-bottom-color: var(--md-link); }
+  }
+
+  strong { color: var(--md-heading); font-weight: 600; }
+  del { color: var(--md-text-dim); }
+
+  hr {
+    height: 0;
+    border: none;
+    border-top: 1px solid var(--md-border);
+    background: none;
+    margin: 2.4em 0;
+  }
+
+  /* Lists */
+  ul, ol { padding-left: 1.6em; margin: 0.9em 0; }
+  li { margin: 0.35em 0; }
+  ul li::marker { color: var(--md-accent); }
+  ol li::marker { color: var(--md-accent); font-weight: 600; font-family: @font-mono; }
+  input[type="checkbox"] { accent-color: var(--md-accent); }
+
+  /* Inline code */
+  code {
+    font-family: @font-mono;
+    font-size: 0.88em;
+    font-weight: 500;
+    background: var(--md-inline-code-bg);
+    color: var(--md-inline-code-fg);
+    padding: 0.12em 0.45em;
+    border-radius: 4px;
+  }
+
+  kbd {
+    font-family: @font-mono;
+    font-size: 0.82em;
+    background: var(--md-surface);
+    color: var(--md-text);
+    border: 1px solid var(--md-border);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 1px 6px;
+    box-shadow: none;
+  }
+
+  /* Code blocks */
+  pre,
+  pre[class*="language-"] {
+    font-family: @font-mono;
+    font-size: 0.92em;
+    line-height: 1.6;
+    margin: 1.4em 0;
+    padding: 14px 18px;
+    background: var(--md-code-bg) !important;
+    color: var(--md-text);
+    border: 1px solid var(--md-border);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    overflow-x: auto;
+    text-shadow: none;
+
+    code {
+      background: transparent;
+      color: var(--md-text);
+      padding: 0;
+      border-radius: 0;
+      font-size: 1em;
+      font-weight: normal;
+      text-shadow: none;
+    }
+  }
+
+  /* Prism token colors */
+  .token {
+    &.comment, &.prolog, &.doctype, &.cdata { color: var(--md-hl-comment); font-style: italic; }
+    &.keyword, &.tag, &.selector, &.important, &.atrule { color: var(--md-hl-keyword); }
+    &.string, &.char, &.regex, &.attr-value, &.inserted { color: var(--md-hl-string); }
+    &.number, &.boolean, &.constant, &.symbol { color: var(--md-hl-number); }
+    &.function, &.function-name { color: var(--md-hl-function); }
+    &.class-name, &.builtin, &.type { color: var(--md-hl-type); }
+    &.variable, &.property, &.attr-name, &.parameter { color: var(--md-hl-variable); }
+    &.punctuation, &.operator, &.entity, &.url { color: var(--md-hl-meta); background: none; }
+    &.deleted { color: var(--md-tone-danger); }
+  }
+
+  /* Blockquote */
+  blockquote {
+    margin: 1.6em 0;
+    padding: 16px 22px 16px 24px;
+    border-left: 3px solid var(--md-accent);
+    background: var(--md-quote-bg);
+    border-radius: 0 8px 8px 0;
+    color: var(--md-text);
+    p:first-child { margin-top: 0; }
+    p:last-child { margin-bottom: 0; }
+  }
+
+  /* Tables */
+  table {
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.4em 0;
+    font-size: 0.95em;
+    border: 1px solid var(--md-border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--md-surface);
+
+    tr { background: transparent; border: none; }
+    th, td {
+      padding: 10px 16px;
+      text-align: left;
+      vertical-align: top;
+      border: none;
+      border-bottom: 1px solid var(--md-border-soft);
+      border-right: 1px solid var(--md-border-soft);
+      &:last-child { border-right: none; }
+    }
+    tr:last-child td { border-bottom: none; }
+    th {
+      background: var(--md-code-chrome-bg);
+      font-weight: 600;
+      font-size: 0.86em;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--md-text-dim);
+    }
+    tbody tr:hover td { background: var(--md-hover); }
+  }
+
+  img { max-width: 100%; border-radius: 8px; }
+
+  /* Admonitions: !!! note / > [!NOTE] */
+  .admonition, .github-alert, .markdown-alert {
+    margin: 1.6em 0;
+    padding: 14px 18px;
+    border: none;
+    border-left: 3px solid var(--tone, var(--md-accent));
+    border-radius: 0 10px 10px 0;
+    background: var(--tone-bg, var(--md-quote-bg));
+    box-shadow: none;
+    .admonition-title, .markdown-alert-title {
+      color: var(--tone, var(--md-accent));
+      font-weight: 700;
+      background: transparent;
+      border: none;
+    }
+    &.note, &.info, &.markdown-alert-note   { --tone: var(--md-tone-note);   --tone-bg: var(--md-tone-note-bg); }
+    &.tip, &.success, &.markdown-alert-tip  { --tone: var(--md-tone-tip);    --tone-bg: var(--md-tone-tip-bg); }
+    &.warning, &.important, &.markdown-alert-warning, &.markdown-alert-important
+                                            { --tone: var(--md-tone-warn);   --tone-bg: var(--md-tone-warn-bg); }
+    &.danger, &.caution, &.error, &.markdown-alert-caution
+                                            { --tone: var(--md-tone-danger); --tone-bg: var(--md-tone-danger-bg); }
+  }
+}
