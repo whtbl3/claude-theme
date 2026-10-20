@@ -2,6 +2,7 @@
 
 ## 0.2.1
 
+- Bỏ bảng Nord Frost, chỉ giữ Aurora. Kiểu dữ liệu `#87b8ad`, key JSON / attribute `#e8a87c`, toán tử `#a8a29e`, info và màu xanh của terminal trở về màu Claude gốc.
 - Số trở lại màu cam `#e0b07a` của bộ màu Claude, tách khỏi hằng số (`true`, `NULL`… vẫn là `#b48ead`). Áp dụng cho theme và code block trong preview MPE (tông tối).
 
 ## 0.2.0
