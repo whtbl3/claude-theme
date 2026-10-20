@@ -212,6 +212,16 @@
     },
     {
       "scope": [
+        "storage.type.function",
+        "storage.type.class",
+        "storage.type.function.lambda"
+      ],
+      "settings": {
+        "foreground": "#81a1c1"
+      }
+    },
+    {
+      "scope": [
         "keyword.operator",
         "punctuation"
       ],
@@ -240,7 +250,14 @@
     },
     {
       "scope": [
-        "constant.language",
+        "constant.language"
+      ],
+      "settings": {
+        "foreground": "#81a1c1"
+      }
+    },
+    {
+      "scope": [
         "constant.character",
         "constant.other",
         "support.constant"
@@ -274,7 +291,6 @@
     {
       "scope": [
         "variable",
-        "variable.parameter",
         "meta.definition.variable",
         "variable.other.property",
         "support.variable"
@@ -285,13 +301,21 @@
     },
     {
       "scope": [
+        "variable.parameter",
+        "variable.parameter.function-call"
+      ],
+      "settings": {
+        "foreground": "#88c0d0"
+      }
+    },
+    {
+      "scope": [
         "variable.language",
         "variable.language.self",
         "variable.language.this"
       ],
       "settings": {
-        "foreground": "#bf616a",
-        "fontStyle": "italic"
+        "foreground": "#81a1c1"
       }
     },
     {
@@ -409,13 +433,12 @@
     "enum": "#87b8ad",
     "interface": "#87b8ad",
     "namespace": "#87b8ad",
-    "parameter": "#d6bfa0",
+    "parameter": "#88c0d0",
     "variable": "#d6bfa0",
     "property": "#d6bfa0",
     "decorator": "#d08770",
     "selfParameter": {
-      "foreground": "#bf616a",
-      "italic": true
+      "foreground": "#81a1c1"
     },
     "number": "#e0b07a"
   }
