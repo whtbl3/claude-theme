@@ -1,41 +1,52 @@
-# claude-theme
+# Claude Theme
 
-Tông màu kiểu Claude cho VS Code và Markdown Preview Enhanced (MPE): nền than ấm, chữ kem, màu nhấn cam `#d97757`.
+Theme VS Code tông màu kiểu Claude: nền than ấm, chữ kem, màu nhấn cam `#d97757`. Extension kèm theo style cùng tông cho [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) (MPE).
 
-| Thư mục | Nội dung |
-| --- | --- |
-| `mpe/style.less` | Style cho preview của MPE. Font Source Sans 3 / Source Serif 4 / JetBrains Mono, tải từ Google Fonts. Khi offline thì dùng font dự phòng có đủ dấu tiếng Việt. |
-| `vscode/settings.json` | Màu giao diện, màu cú pháp và semantic token, phủ lên theme **Dark Modern**. Có kèm các setting của MPE, trong đó có setting cho file `.md` mặc định mở bằng MPE (để code block dùng màu của `style.less`). |
-| `install.sh` | Copy `mpe/style.less` vào thư mục cấu hình của MPE. File cũ được sao lưu trước khi ghi đè. |
+## Tính năng
 
-Bảng màu được chuyển từ extension [Claude Style Markdown Preview](https://github.com/ibank/claude-style-markdown-preview).
+- **Theme Claude Dark** cho giao diện, terminal (16 màu ANSI) và màu cú pháp, kể cả semantic token (Python/Pylance). Comment không in nghiêng: dấu `|` in nghiêng của JetBrains Mono trông giống `/`.
+- **Style cho MPE** (`mpe/style.less`):
+  - Font Source Sans 3 / Source Serif 4 / JetBrains Mono, tải từ Google Fonts. Khi offline thì dùng font dự phòng có đủ dấu tiếng Việt.
+  - Cột chữ căn giữa.
+  - Code block cùng màu với editor.
+- **Lệnh `Claude Theme: Install Markdown Preview Enhanced Style`**, làm 3 việc:
+  - Ghi `style.less` vào thư mục cấu hình global của MPE.
+  - Đặt `markdown-preview-enhanced.previewTheme` và `codeBlockTheme` thành `vscode.css`.
+  - Cho file `.md` mặc định mở bằng MPE.
+
+  Nếu đã có sẵn một `style.less` không phải của extension này, file đó được giữ lại thành `style.less.bak-<thời điểm>`.
+- **Khi khởi động:** nếu `style.less` do extension này cài trước đó thì tự cập nhật lên bản mới. Nếu chưa cài thì hỏi một lần cho mỗi phiên bản.
 
 ## Cài đặt
 
-### 1. Markdown Preview Enhanced
+1. Tải file `.vsix` từ trang Releases, hoặc tự build theo hướng dẫn bên dưới.
+2. Trong VS Code: Command Palette, chạy **Extensions: Install from VSIX...**, chọn file `.vsix`.
+3. Chọn theme: `Ctrl+K Ctrl+T`, chọn **Claude Dark**.
+4. Nếu dùng MPE: bấm **Install** khi được hỏi, hoặc chạy lệnh **Claude Theme: Install Markdown Preview Enhanced Style**.
+
+Extension chạy cùng phía với MPE (`extensionKind: workspace`). Trên WSL / Remote, hãy cài khi đang kết nối remote để style được ghi vào đúng thư mục mà MPE đọc.
+
+## Build
+
+Cần Node 22 trở lên. Không cần `npm install`.
 
 ```bash
-./install.sh
+node scripts/build-vsix.js   # tạo dist/claude-theme-<version>.vsix
 ```
 
-Script copy style vào `~/.local/state/crossnote/style.less` (hoặc `$XDG_STATE_HOME/crossnote/`). Trên WSL, chạy script bên trong WSL vì extension chạy ở phía WSL.
-
-Cài thủ công: mở Command Palette, chạy **Markdown Preview Enhanced: Customize CSS (Global)**, dán nội dung `mpe/style.less` vào rồi lưu.
-
-### 2. VS Code
-
-1. Chọn theme **Dark Modern** (`Ctrl+K Ctrl+T`).
-2. Mở Command Palette, chạy **Preferences: Open User Settings (JSON)**.
-3. Copy các khóa trong `vscode/settings.json` vào file đó.
-
-Mọi màu nằm trong khóa `[Dark Modern]`, nên chỉ có tác dụng khi dùng theme này. Muốn bỏ thì xóa các khóa vừa thêm.
-
-### 3. Làm mới preview
-
-MPE tự tải lại khi `style.less` thay đổi. Nếu preview chưa đổi, chuyển file `.md` sang **Text Editor** rồi mở lại bằng **Markdown Preview Enhanced** (menu **Reopen Editor With** ở góc trên bên phải).
+Script tự đóng gói `.vsix` (zip + manifest) mà không dùng `@vscode/vsce`. Nếu muốn đưa lên Marketplace thì dùng `vsce package` / `vsce publish` như bình thường.
 
 ## Ghi chú kỹ thuật
 
+- **Thư mục cấu hình MPE** được tìm giống cách MPE làm, theo thứ tự:
+  1. Setting `markdown-preview-enhanced.configPath`.
+  2. Windows: `~/.crossnote`.
+  3. `$XDG_CONFIG_HOME/crossnote`.
+  4. `~/.local/state/crossnote`.
 - **Căn giữa:** MPE đặt `margin: 0` cho khung preview bằng một selector mạnh hơn selector của style này. Vì vậy cột chữ được căn giữa bằng padding: `max(24px, calc((100% - 800px) / 2))`. Biểu thức này được bọc trong `~"..."` để LESS không tự tính `max()` lúc biên dịch.
 - **Font:** không dùng Georgia làm font dự phòng vì thiếu các chữ tiếng Việt như ặ, ữ, ộ.
-- **Opacity:** theme preview `vscode.css` làm mờ blockquote, h6 và chữ gạch ngang bằng `opacity`. Style này đặt lại `opacity: 1`.
+- **Opacity:** theme preview `vscode.css` của MPE làm mờ blockquote, h6 và chữ gạch ngang bằng `opacity`. Style này đặt lại `opacity: 1`.
+
+## Ghi công
+
+Bảng màu và cách trình bày preview được chuyển từ extension [Claude Style Markdown Preview](https://github.com/ibank/claude-style-markdown-preview) (MIT).

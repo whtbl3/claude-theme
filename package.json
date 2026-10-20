@@ -1,0 +1,51 @@
+{
+  "name": "claude-theme",
+  "displayName": "Claude Theme",
+  "description": "Warm Claude-style dark theme for VS Code, plus a matching style for Markdown Preview Enhanced.",
+  "version": "0.1.0",
+  "publisher": "whtbl3",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whtbl3/claude-theme.git"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "theme",
+    "dark",
+    "claude",
+    "markdown",
+    "markdown-preview-enhanced"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Claude Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/claude-dark-color-theme.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "claudeTheme.installMpeStyle",
+        "title": "Install Markdown Preview Enhanced Style",
+        "category": "Claude Theme"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "node scripts/build-vsix.js"
+  }
+}
