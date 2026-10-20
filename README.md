@@ -2,9 +2,17 @@
 
 Theme VS Code tông màu kiểu Claude: nền than ấm, chữ kem, màu nhấn cam `#d97757`. Extension kèm theo style cùng tông cho [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) (MPE).
 
+| Claude Dark | Claude Dimmed |
+| --- | --- |
+| ![Claude Dark](images/claude-dark.svg) | ![Claude Dimmed](images/claude-dimmed.svg) |
+
 ## Tính năng
 
-- **Theme Claude Dark** cho giao diện, terminal (16 màu ANSI) và màu cú pháp, kể cả semantic token (Python/Pylance). Comment không in nghiêng: dấu `|` in nghiêng của JetBrains Mono trông giống `/`.
+- **Hai theme tối** cho giao diện, terminal (16 màu ANSI) và màu cú pháp, kể cả semantic token (Python/Pylance). Hai theme dùng cùng màu chữ và màu cú pháp, chỉ khác độ tối của nền:
+  - **Claude Dark**: nền tối, editor `#1a1a1a`.
+  - **Claude Dimmed**: nền xám ấm như claude.ai, editor `#262624`.
+
+  Comment không in nghiêng: dấu `|` in nghiêng của JetBrains Mono trông giống `/`.
 - **Style cho MPE** (`mpe/style.less`):
   - Font Source Sans 3 / Source Serif 4 / JetBrains Mono, tải từ Google Fonts. Khi offline thì dùng font dự phòng có đủ dấu tiếng Việt.
   - Cột chữ căn giữa.
@@ -21,7 +29,7 @@ Theme VS Code tông màu kiểu Claude: nền than ấm, chữ kem, màu nhấn 
 
 1. Tải file `.vsix` từ trang Releases, hoặc tự build theo hướng dẫn bên dưới.
 2. Trong VS Code: Command Palette, chạy **Extensions: Install from VSIX...**, chọn file `.vsix`.
-3. Chọn theme: `Ctrl+K Ctrl+T`, chọn **Claude Dark**.
+3. Chọn theme: `Ctrl+K Ctrl+T`, chọn **Claude Dark** hoặc **Claude Dimmed**.
 4. Nếu dùng MPE: bấm **Install** khi được hỏi, hoặc chạy lệnh **Claude Theme: Install Markdown Preview Enhanced Style**.
 
 Extension chạy cùng phía với MPE (`extensionKind: workspace`). Trên WSL / Remote, hãy cài khi đang kết nối remote để style được ghi vào đúng thư mục mà MPE đọc.
@@ -31,7 +39,8 @@ Extension chạy cùng phía với MPE (`extensionKind: workspace`). Trên WSL /
 Cần Node 22 trở lên. Không cần `npm install`.
 
 ```bash
-node scripts/build-vsix.js   # tạo dist/claude-theme-<version>.vsix
+node scripts/build-vsix.js       # tạo dist/claude-theme-<version>.vsix
+node scripts/render-preview.js   # vẽ lại images/*.svg từ file theme
 ```
 
 Script tự đóng gói `.vsix` (zip + manifest) mà không dùng `@vscode/vsce`. Nếu muốn đưa lên Marketplace thì dùng `vsce package` / `vsce publish` như bình thường.

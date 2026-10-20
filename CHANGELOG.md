@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0
+
+- Màu cú pháp quay về bộ màu Claude của 0.1.0 (bỏ Nord), với vài chỉnh sửa:
+  - Tên class sáng hơn: `#94c7bb`.
+  - Kiểu có sẵn của Python (`str`, `int`, `list`…) dùng xanh lam đậm `#6c9fc4`.
+  - Ngoặc theo thứ tự vàng `#e0b07a` → hồng đất `#d4a5a5` → xanh ngọc `#87b8ad`.
+- Thêm theme **Claude Dimmed**: cùng màu với Claude Dark, nền xám ấm như claude.ai (editor `#262624`, thanh bên `#1f1e1d`, popup `#30302e`), comment sáng hơn (`#8a8174`).
+- Ảnh preview cho README (`images/`), vẽ bằng `scripts/render-preview.js`.
+- Style MPE quay về bản 0.1.0.
+
 ## 0.2.1
 
 - Kết hợp màu lạnh cho phần khung code: từ khai báo (`def`, `class`, `lambda`), hằng ngôn ngữ (`True`/`False`/`None`, `true`/`null`) và `self`/`this` dùng xanh `#81a1c1`; tham số và keyword argument (`cwd=`) dùng xanh nhạt `#88c0d0`. Điều khiển, hàm, string và số giữ tông ấm. Chỉ áp dụng trong editor.

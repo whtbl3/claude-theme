@@ -35,16 +35,13 @@
   --md-tone-warn: #e8a87c; --md-tone-warn-bg: rgba(232, 168, 124, 0.10);
   --md-tone-danger: #d97757; --md-tone-danger-bg: rgba(217, 119, 87, 0.10);
   --md-hl-comment: #7c7368;
-  --md-hl-keyword: #d08770;
-  --md-hl-string: #a3be8c;
+  --md-hl-keyword: #ea9a78;
+  --md-hl-string: #a7bd86;
   --md-hl-number: #e0b07a;
-  --md-hl-constant: #b48ead;
-  --md-hl-function: #ebcb8b;
+  --md-hl-function: #f0cd96;
   --md-hl-type: #87b8ad;
   --md-hl-variable: #d6bfa0;
   --md-hl-meta: #948d84;
-  --md-hl-operator: #948d84;
-  --md-hl-property: #d6bfa0;
 }
 
 .claude-light() {
@@ -74,13 +71,10 @@
   --md-hl-keyword: #b3502a;
   --md-hl-string: #5c7a36;
   --md-hl-number: #9c5d24;
-  --md-hl-constant: #9c5d24;
   --md-hl-function: #8a6a16;
   --md-hl-type: #2c7a6e;
   --md-hl-variable: #845c38;
   --md-hl-meta: #978f82;
-  --md-hl-operator: #978f82;
-  --md-hl-property: #845c38;
 }
 
 /* Dark by default; follow VS Code when it is a light theme. */
@@ -231,14 +225,11 @@ html body,
     &.comment, &.prolog, &.doctype, &.cdata { color: var(--md-hl-comment); font-style: italic; }
     &.keyword, &.tag, &.selector, &.important, &.atrule { color: var(--md-hl-keyword); }
     &.string, &.char, &.regex, &.attr-value, &.inserted { color: var(--md-hl-string); }
-    &.number { color: var(--md-hl-number); }
-    &.boolean, &.constant, &.symbol { color: var(--md-hl-constant); }
+    &.number, &.boolean, &.constant, &.symbol { color: var(--md-hl-number); }
     &.function, &.function-name { color: var(--md-hl-function); }
     &.class-name, &.builtin, &.type { color: var(--md-hl-type); }
-    &.variable, &.parameter { color: var(--md-hl-variable); }
-    &.property, &.attr-name { color: var(--md-hl-property); }
-    &.punctuation, &.entity, &.url { color: var(--md-hl-meta); background: none; }
-    &.operator { color: var(--md-hl-operator); background: none; }
+    &.variable, &.property, &.attr-name, &.parameter { color: var(--md-hl-variable); }
+    &.punctuation, &.operator, &.entity, &.url { color: var(--md-hl-meta); background: none; }
     &.deleted { color: var(--md-tone-danger); }
   }
 

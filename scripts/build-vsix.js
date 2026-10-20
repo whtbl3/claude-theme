@@ -14,7 +14,10 @@ const FILES = [
   'package.json',
   'extension.js',
   'themes/claude-dark-color-theme.json',
+  'themes/claude-dimmed-color-theme.json',
   'mpe/style.less',
+  'images/claude-dark.svg',
+  'images/claude-dimmed.svg',
   'README.md',
   'CHANGELOG.md',
   'LICENSE',
@@ -61,6 +64,7 @@ const contentTypes = `<?xml version="1.0" encoding="utf-8"?>
   <Default Extension=".js" ContentType="application/javascript" />
   <Default Extension=".md" ContentType="text/markdown" />
   <Default Extension=".less" ContentType="text/plain" />
+  <Default Extension=".svg" ContentType="image/svg+xml" />
   <Default Extension=".vsixmanifest" ContentType="text/xml" />
   <Override PartName="/extension/LICENSE" ContentType="text/plain" />
 </Types>
