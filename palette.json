@@ -1,0 +1,28 @@
+{
+  "charcoal": {
+    "c0": "#161615",
+    "c1": "#1a1a1a",
+    "c2": "#262624",
+    "c3": "#30302e",
+    "c4": "#4a4743"
+  },
+  "cream": {
+    "bright": "#f4f1ec",
+    "text": "#e8e6e3",
+    "muted": "#a8a29e",
+    "dim": "#8a847d"
+  },
+  "clay": {
+    "accent": "#ea9a78",
+    "surface": "#443027"
+  },
+  "earth": {
+    "yellow": "#ebcb8b",
+    "green": "#a7bd86",
+    "teal": "#94c7bb",
+    "blue": "#6c9fc4",
+    "rose": "#d98a9a",
+    "purple": "#c6a5c1",
+    "red": "#bf616a"
+  }
+}

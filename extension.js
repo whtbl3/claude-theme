@@ -5,13 +5,18 @@ const path = require('path');
 
 const MPE = 'markdown-preview-enhanced';
 const MPE_EXTENSION_ID = 'shd101wyy.markdown-preview-enhanced';
-// First line of mpe/style.less; marks a style.less we wrote, so updates skip the backup.
+// First lines of mpe/style.less and mpe/head.html; mark files we wrote, so updates skip the backup.
 const STYLE_MARKER = 'Claude-style theme for Markdown Preview Enhanced';
+const HEAD_MARKER = 'Claude Theme: copy button for code blocks';
+// Comment at the top of the head.html MPE creates by default; that file holds nothing worth backing up.
+const MPE_DEFAULT_HEAD = 'The content below will be included at the end of the <head> element.';
 const PROMPTED_KEY = 'claudeTheme.promptedVersion';
 
 const MPE_SETTINGS = [
   [`${MPE}.previewTheme`, 'vscode.css'],
   [`${MPE}.codeBlockTheme`, 'vscode.css'],
+  // Lets head.html load copy-button.js; MPE strips every <script> while this is off.
+  [`${MPE}.enablePreviewScripts`, true],
 ];
 
 // Same lookup MPE (crossnote) uses for its global config directory.
@@ -43,22 +48,30 @@ async function applySettings() {
   await config.update('workbench.editorAssociations', { ...associations, '*.md': MPE }, global);
 }
 
-// Writes the bundled style.less into MPE's config dir. A style.less that we did not
-// write is kept as style.less.bak-<timestamp>. Returns false when already current.
-function writeStyle(context) {
-  const bundled = fs.readFileSync(path.join(context.extensionPath, 'mpe', 'style.less'), 'utf8');
+// Writes one bundled mpe/<name> into MPE's config dir. A file we did not write is kept
+// as <name>.bak-<timestamp>. Returns false when already current.
+function writeMpeFile(context, name, isOurs) {
+  const bundled = fs.readFileSync(path.join(context.extensionPath, 'mpe', name), 'utf8');
   const dir = mpeConfigDir();
-  const dest = path.join(dir, 'style.less');
+  const dest = path.join(dir, name);
   const current = readOrNull(dest);
   if (current === bundled) return false;
 
   fs.mkdirSync(dir, { recursive: true });
-  if (current !== null && current.trim() !== '' && !current.includes(STYLE_MARKER)) {
+  if (current !== null && current.trim() !== '' && !isOurs(current)) {
     const stamp = new Date().toISOString().replace(/[:.]/g, '-');
     fs.writeFileSync(`${dest}.bak-${stamp}`, current);
   }
   fs.writeFileSync(dest, bundled);
   return true;
+}
+
+// Writes style.less, head.html and copy-button.js. Returns false when all were already current.
+function writeStyle(context) {
+  const style = writeMpeFile(context, 'style.less', (s) => s.includes(STYLE_MARKER));
+  const head = writeMpeFile(context, 'head.html', (s) => s.includes(HEAD_MARKER) || s.includes(MPE_DEFAULT_HEAD));
+  const script = writeMpeFile(context, 'copy-button.js', (s) => s.includes(HEAD_MARKER));
+  return style || head || script;
 }
 
 async function installMpeStyle(context) {

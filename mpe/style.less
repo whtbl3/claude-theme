@@ -13,35 +13,35 @@
 /* ---------- Palettes ---------- */
 .claude-dark() {
   --md-bg: #1a1a1a;
-  --md-surface: #1e1d1b;
+  --md-surface: #262624;
   --md-text: #e8e6e3;
   --md-text-dim: #a8a29e;
   --md-heading: #f4f1ec;
-  --md-border: #2e2c28;
-  --md-border-soft: #232220;
+  --md-border: #30302e;
+  --md-border-soft: #262624;
   --md-hover: rgba(255, 255, 255, 0.04);
-  --md-accent: #d97757;
+  --md-accent: #ea9a78;
   --md-accent-bg: rgba(217, 119, 87, 0.12);
-  --md-link: #e8a87c;
+  --md-link: #ea9a78;
   --md-link-underline: rgba(232, 168, 124, 0.3);
   --md-inline-code-bg: rgba(217, 119, 87, 0.14);
-  --md-inline-code-fg: #e8a87c;
-  --md-code-bg: #131210;
+  --md-inline-code-fg: #ea9a78;
+  --md-code-bg: #161615;
   --md-code-chrome-bg: rgba(255, 255, 255, 0.018);
   --md-quote-bg: rgba(217, 119, 87, 0.06);
   --md-selection: rgba(217, 119, 87, 0.32);
-  --md-tone-note: #7eb6c7; --md-tone-note-bg: rgba(126, 182, 199, 0.08);
-  --md-tone-tip: #8ec081;  --md-tone-tip-bg: rgba(142, 192, 129, 0.08);
-  --md-tone-warn: #e8a87c; --md-tone-warn-bg: rgba(232, 168, 124, 0.10);
-  --md-tone-danger: #d97757; --md-tone-danger-bg: rgba(217, 119, 87, 0.10);
-  --md-hl-comment: #7c7368;
+  --md-tone-note: #6c9fc4; --md-tone-note-bg: rgba(126, 182, 199, 0.08);
+  --md-tone-tip: #a7bd86;  --md-tone-tip-bg: rgba(142, 192, 129, 0.08);
+  --md-tone-warn: #ea9a78; --md-tone-warn-bg: rgba(232, 168, 124, 0.10);
+  --md-tone-danger: #ea9a78; --md-tone-danger-bg: rgba(217, 119, 87, 0.10);
+  --md-hl-comment: #8a847d;
   --md-hl-keyword: #ea9a78;
   --md-hl-string: #a7bd86;
-  --md-hl-number: #e0b07a;
-  --md-hl-function: #f0cd96;
-  --md-hl-type: #87b8ad;
-  --md-hl-variable: #d6bfa0;
-  --md-hl-meta: #948d84;
+  --md-hl-number: #ebcb8b;
+  --md-hl-function: #ebcb8b;
+  --md-hl-type: #94c7bb;
+  --md-hl-variable: #e8e6e3;
+  --md-hl-meta: #a8a29e;
 }
 
 .claude-light() {
@@ -219,6 +219,43 @@ html body,
       text-shadow: none;
     }
   }
+
+  /* Copy button added by copy-button.js (loaded from head.html). The <pre> scrolls
+     sideways, so the button sits on a wrapper that does not. */
+  .claude-code-wrap { position: relative; }
+  .claude-copy-btn {
+    z-index: 2;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    color: var(--md-text-dim);
+    background: var(--md-surface);
+    border: 1px solid var(--md-border);
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+    svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    &:hover { color: var(--md-text); border-color: var(--md-accent); }
+    &[data-state="done"] { color: #a7bd86; border-color: #a7bd86; opacity: 1; }
+    &[data-state="fail"] { color: #bf616a; border-color: #bf616a; opacity: 1; }
+  }
+  .claude-code-wrap:hover > .claude-copy-btn,
+  .claude-copy-btn:focus-visible { opacity: 1; }
 
   /* Prism token colors */
   .token {
