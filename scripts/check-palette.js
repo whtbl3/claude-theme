@@ -17,7 +17,7 @@ const check = (where, value) => {
   if (!allowed.has(v.slice(0, 7))) offenders.push(`${where}: ${value}`);
 };
 
-for (const file of ['themes/claude-dark-color-theme.json', 'themes/claude-dimmed-color-theme.json']) {
+for (const file of ['themes/velin-dark-color-theme.json', 'themes/velin-dimmed-color-theme.json']) {
   const theme = JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
   for (const [key, value] of Object.entries(theme.colors)) check(`${file} colors.${key}`, value);
   theme.tokenColors.forEach((rule, i) => check(`${file} tokenColors[${i}] ${rule.scope[0]}`, rule.settings.foreground));
@@ -27,7 +27,7 @@ for (const file of ['themes/claude-dark-color-theme.json', 'themes/claude-dimmed
 }
 
 const less = fs.readFileSync(path.join(root, 'mpe/style.less'), 'utf8');
-const dark = less.match(/\.claude-dark\(\) \{[\s\S]*?\n\}/)[0];
+const dark = less.match(/\.velin-dark\(\) \{[\s\S]*?\n\}/)[0];
 for (const m of dark.matchAll(/(--[\w-]+):\s*(#[0-9a-fA-F]{6,8})/g)) check(`mpe/style.less ${m[1]}`, m[2]);
 
 if (offenders.length) {

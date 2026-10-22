@@ -1,13 +1,14 @@
 {
-  "name": "claude-theme",
-  "displayName": "Claude Theme",
-  "description": "Warm Claude-style dark themes (Dark and Dimmed) for VS Code, plus a matching style for Markdown Preview Enhanced.",
-  "version": "0.6.4",
+  "name": "velin",
+  "displayName": "Velin",
+  "description": "Warm, low-contrast dark themes (Velin Dark and Velin Dimmed) built on an 18-color palette, plus a matching style for Markdown Preview Enhanced.",
+  "version": "0.7.0",
   "publisher": "whtbl3",
   "license": "MIT",
+  "icon": "images/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/whtbl3/claude-theme.git"
+    "url": "https://github.com/whtbl3/velin.git"
   },
   "engines": {
     "vscode": "^1.90.0"
@@ -17,11 +18,17 @@
   ],
   "keywords": [
     "theme",
-    "dark",
-    "claude",
+    "dark theme",
+    "color theme",
+    "warm",
+    "dimmed",
     "markdown",
     "markdown-preview-enhanced"
   ],
+  "galleryBanner": {
+    "color": "#1a1a1a",
+    "theme": "dark"
+  },
   "extensionKind": [
     "workspace"
   ],
@@ -32,21 +39,21 @@
   "contributes": {
     "themes": [
       {
-        "label": "Claude Dark",
+        "label": "Velin Dark",
         "uiTheme": "vs-dark",
-        "path": "./themes/claude-dark-color-theme.json"
+        "path": "./themes/velin-dark-color-theme.json"
       },
       {
-        "label": "Claude Dimmed",
+        "label": "Velin Dimmed",
         "uiTheme": "vs-dark",
-        "path": "./themes/claude-dimmed-color-theme.json"
+        "path": "./themes/velin-dimmed-color-theme.json"
       }
     ],
     "commands": [
       {
-        "command": "claudeTheme.installMpeStyle",
+        "command": "velin.installMpeStyle",
         "title": "Install Markdown Preview Enhanced Style",
-        "category": "Claude Theme"
+        "category": "Velin"
       }
     ]
   },

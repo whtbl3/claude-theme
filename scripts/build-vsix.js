@@ -13,14 +13,15 @@ const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'))
 const FILES = [
   'package.json',
   'extension.js',
-  'themes/claude-dark-color-theme.json',
-  'themes/claude-dimmed-color-theme.json',
+  'themes/velin-dark-color-theme.json',
+  'themes/velin-dimmed-color-theme.json',
   'mpe/style.less',
   'mpe/head.html',
   'mpe/copy-button.js',
   'palette.json',
-  'images/claude-dark.svg',
-  'images/claude-dimmed.svg',
+  'images/icon.png',
+  'images/velin-dark.svg',
+  'images/velin-dimmed.svg',
   'README.md',
   'CHANGELOG.md',
   'LICENSE',
@@ -47,6 +48,7 @@ const manifest = `<?xml version="1.0" encoding="utf-8"?>
       <Property Id="Microsoft.VisualStudio.Services.Links.Source" Value="${xmlEscape(pkg.repository.url)}" />
     </Properties>
     <License>extension/LICENSE</License>
+    <Icon>extension/${xmlEscape(pkg.icon)}</Icon>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Code" />
@@ -54,6 +56,7 @@ const manifest = `<?xml version="1.0" encoding="utf-8"?>
   <Dependencies />
   <Assets>
     <Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true" />
+    <Asset Type="Microsoft.VisualStudio.Services.Icons.Default" Path="extension/${xmlEscape(pkg.icon)}" Addressable="true" />
     <Asset Type="Microsoft.VisualStudio.Services.Content.Details" Path="extension/README.md" Addressable="true" />
     <Asset Type="Microsoft.VisualStudio.Services.Content.Changelog" Path="extension/CHANGELOG.md" Addressable="true" />
     <Asset Type="Microsoft.VisualStudio.Services.Content.License" Path="extension/LICENSE" Addressable="true" />
@@ -69,6 +72,7 @@ const contentTypes = `<?xml version="1.0" encoding="utf-8"?>
   <Default Extension=".less" ContentType="text/plain" />
   <Default Extension=".html" ContentType="text/html" />
   <Default Extension=".svg" ContentType="image/svg+xml" />
+  <Default Extension=".png" ContentType="image/png" />
   <Default Extension=".vsixmanifest" ContentType="text/xml" />
   <Override PartName="/extension/LICENSE" ContentType="text/plain" />
 </Types>

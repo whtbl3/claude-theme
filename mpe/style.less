@@ -1,4 +1,4 @@
-/* Claude-style theme for Markdown Preview Enhanced
+/* Velin theme for Markdown Preview Enhanced
    Ported from ibank.claude-style-markdown-preview (claude.css).
    Docs: https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
 
@@ -11,7 +11,7 @@
 @font-mono:  "JetBrains Mono", Consolas, ui-monospace, monospace;
 
 /* ---------- Palettes ---------- */
-.claude-dark() {
+.velin-dark() {
   --md-bg: #1a1a1a;
   --md-surface: #262624;
   --md-text: #e8e6e3;
@@ -44,7 +44,7 @@
   --md-hl-meta: #a8a29e;
 }
 
-.claude-light() {
+.velin-light() {
   --md-bg: #faf9f7;
   --md-surface: #f3eee5;
   --md-text: #2a2a2a;
@@ -78,8 +78,8 @@
 }
 
 /* Dark by default; follow VS Code when it is a light theme. */
-html, body { .claude-dark(); }
-body.vscode-light, body.vscode-high-contrast-light { .claude-light(); }
+html, body { .velin-dark(); }
+body.vscode-light, body.vscode-high-contrast-light { .velin-light(); }
 
 html body,
 .preview-container,
@@ -222,8 +222,8 @@ html body,
 
   /* Copy button added by copy-button.js (loaded from head.html). The <pre> scrolls
      sideways, so the button sits on a wrapper that does not. */
-  .claude-code-wrap { position: relative; }
-  .claude-copy-btn {
+  .velin-code-wrap { position: relative; }
+  .velin-copy-btn {
     z-index: 2;
     position: absolute;
     top: 8px;
@@ -254,8 +254,8 @@ html body,
     &[data-state="done"] { color: #a7bd86; border-color: #a7bd86; opacity: 1; }
     &[data-state="fail"] { color: #bf616a; border-color: #bf616a; opacity: 1; }
   }
-  .claude-code-wrap:hover > .claude-copy-btn,
-  .claude-copy-btn:focus-visible { opacity: 1; }
+  .velin-code-wrap:hover > .velin-copy-btn,
+  .velin-copy-btn:focus-visible { opacity: 1; }
 
   /* Prism token colors */
   .token {

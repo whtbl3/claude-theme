@@ -1,46 +1,48 @@
 #!/usr/bin/env node
-// Renders images/<theme>.svg: a small editor window showing sample Python code,
+// Renders images/<theme>.svg: a small editor window showing sample JavaScript code,
 // colored from the theme files, for the README.
 const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
 const THEMES = [
-  ['themes/claude-dark-color-theme.json', 'images/claude-dark.svg'],
-  ['themes/claude-dimmed-color-theme.json', 'images/claude-dimmed.svg'],
+  ['themes/velin-dark-color-theme.json', 'images/velin-dark.svg'],
+  ['themes/velin-dimmed-color-theme.json', 'images/velin-dimmed.svg'],
 ];
 
 // Sample code as [text, role] tokens; '\n' ends a line. Brackets get their
 // pair-colorization level from nesting.
 const ROLE_SCOPE = {
   kw: 'keyword',
-  deco: 'entity.name.function.decorator',
-  cls: 'entity.name.class',
-  builtin: 'support.type.python',
   fn: 'entity.name.function',
   var: 'variable',
   prop: 'variable.other.property',
   str: 'string',
   num: 'constant.numeric',
   op: 'keyword.operator',
+  punct: 'punctuation',
   comment: 'comment',
 };
+const TAB = 'main.js';
+const LANGUAGE = 'JavaScript';
 const CODE = [
-  ['from', 'kw'], [' '], ['pathlib', 'cls'], [' '], ['import', 'kw'], [' '], ['Path', 'cls'], ['\n'],
+  ['const', 'kw'], [' '], ['btn', 'var'], [' '], ['=', 'op'], [' '], ['document', 'var'], ['.', 'punct'], ['getElementById', 'fn'],
+  ['('], ["'btn'", 'str'], [')'], [';', 'punct'], ['\n'],
+  ['let', 'kw'], [' '], ['count', 'var'], [' '], ['=', 'op'], [' '], ['0', 'num'], [';', 'punct'], ['\n'],
   ['\n'],
-  ['@dataclass', 'deco'], ['\n'],
-  ['class', 'kw'], [' '], ['Clip', 'cls'], [':', 'op'], ['\n'],
-  ['    '], ['path', 'var'], [':', 'op'], [' '], ['Path', 'cls'], ['\n'],
-  ['    '], ['fps', 'var'], [':', 'op'], [' '], ['int', 'builtin'], [' '], ['=', 'op'], [' '], ['30', 'num'], ['\n'],
+  ['function', 'kw'], [' '], ['render', 'fn'], ['('], [')'], [' '], ['{'], ['\n'],
+  ['  '], ['btn', 'var'], ['.', 'punct'], ['innerText', 'prop'], [' '], ['=', 'op'], [' '], ['`Count: ', 'str'], ['${', 'kw'],
+  ['count', 'var'], ['}', 'kw'], ['`', 'str'], [';', 'punct'], ['\n'],
+  ['}'], ['\n'],
   ['\n'],
-  ['def', 'kw'], [' '], ['load', 'fn'], ['('], ['video_path', 'var'], [':', 'op'], [' '], ['str', 'builtin'], [')'],
-  [' '], ['->', 'op'], [' '], ['list', 'builtin'], ['['], ['Clip', 'cls'], [']'], [':', 'op'], ['\n'],
-  ['    '], ['# Skip empty files.', 'comment'], ['\n'],
-  ['    '], ['files', 'var'], [' '], ['=', 'op'], [' '], ['sorted', 'fn'], ['('], ['Path', 'cls'], ['('], ['video_path', 'var'], [')'],
-  ['.', 'op'], ['glob', 'fn'], ['('], ['"*.mp4"', 'str'], [')'], [')'], ['\n'],
-  ['    '], ['return', 'kw'], [' '], ['['], ['Clip', 'cls'], ['('], ['f', 'var'], [')'], [' '], ['for', 'kw'], [' '], ['f', 'var'],
-  [' '], ['in', 'kw'], [' '], ['files', 'var'], [' '], ['if', 'kw'], [' '], ['f', 'var'], ['.', 'op'], ['stat', 'fn'], ['('], [')'],
-  ['.', 'op'], ['st_size', 'prop'], [' '], ['>', 'op'], [' '], ['0', 'num'], [']'], ['\n'],
+  ['btn', 'var'], ['.', 'punct'], ['addEventListener', 'fn'], ['('], ["'click'", 'str'], [',', 'punct'], [' '], ['('], [')'], [' '],
+  ['=>', 'kw'], [' '], ['{'], ['\n'],
+  ['  '], ['// Count from 1 to 10.', 'comment'], ['\n'],
+  ['  '], ['if', 'kw'], [' '], ['('], ['count', 'var'], [' '], ['<', 'op'], [' '], ['10', 'num'], [')'], [' '], ['{'], ['\n'],
+  ['    '], ['count', 'var'], [' '], ['+=', 'op'], [' '], ['1', 'num'], [';', 'punct'], ['\n'],
+  ['    '], ['render', 'fn'], ['('], [')'], [';', 'punct'], ['\n'],
+  ['  '], ['}'], ['\n'],
+  ['}'], [')'], [';', 'punct'], ['\n'],
 ];
 
 // Longest-prefix match of a scope against the theme's tokenColors.
@@ -82,8 +84,8 @@ function render(theme, label) {
       continue;
     }
     let fill = role ? tokenColor(theme, ROLE_SCOPE[role]) : c('editor.foreground');
-    if ('([{'.includes(text)) fill = brackets[depth++ % brackets.length];
-    else if (')]}'.includes(text)) fill = brackets[--depth % brackets.length];
+    if (!role && '([{'.includes(text)) fill = brackets[depth++ % brackets.length];
+    else if (!role && ')]}'.includes(text)) fill = brackets[--depth % brackets.length];
     lines[lines.length - 1].push(`<tspan fill="${fill}">${esc(text)}</tspan>`);
   }
   const code = lines
@@ -112,7 +114,7 @@ function render(theme, label) {
     <rect y="${TITLE}" width="${W}" height="${TABS}" fill="${c('editorGroupHeader.tabsBackground')}"/>
     <rect x="${ACT}" y="${TITLE}" width="132" height="${TABS}" fill="${c('tab.activeBackground')}"/>
     <rect x="${ACT}" y="${TITLE}" width="132" height="2" fill="${c('tab.activeBorderTop')}"/>
-    <text x="${ACT + 66}" y="${TITLE + 22}" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" fill="${c('tab.activeForeground')}">main.py</text>
+    <text x="${ACT + 66}" y="${TITLE + 22}" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" fill="${c('tab.activeForeground')}">${esc(TAB)}</text>
     <rect y="${TITLE}" width="${ACT}" height="${H - TITLE - STATUS}" fill="${c('activityBar.background')}"/>
     <rect y="${TITLE + 10}" width="2" height="28" fill="${accent}"/>
     ${icons}
@@ -123,7 +125,7 @@ function render(theme, label) {
     </g>
     <rect y="${H - STATUS}" width="${W}" height="${STATUS}" fill="${c('statusBar.background')}"/>
     <text x="12" y="${H - 7}" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" fill="${c('statusBar.foreground')}">⊗ 0  ⚠ 0</text>
-    <text x="${W - 12}" y="${H - 7}" text-anchor="end" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" fill="${c('statusBar.foreground')}">Python</text>
+    <text x="${W - 12}" y="${H - 7}" text-anchor="end" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" fill="${c('statusBar.foreground')}">${esc(LANGUAGE)}</text>
   </g>
 </svg>
 `;

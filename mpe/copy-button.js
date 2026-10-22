@@ -1,5 +1,5 @@
-// Claude Theme: copy button for code blocks in the Markdown Preview Enhanced preview.
-// Loaded by head.html; styled in style.less (.claude-code-wrap, .claude-copy-btn).
+// Velin: copy button for code blocks in the Markdown Preview Enhanced preview.
+// Loaded by head.html; styled in style.less (.velin-code-wrap, .velin-copy-btn).
 (() => {
   const ICONS = {
     copy: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11"/></svg>',
@@ -7,7 +7,7 @@
     fail: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>',
   };
   const RESET_MS = 1600;
-  const LOG = '[claude-theme copy]';
+  const LOG = '[velin copy]';
 
   // The VS Code webview may block navigator.clipboard, so first fire a synchronous copy
   // command during the user gesture and fill the clipboard from the copy event.
@@ -79,15 +79,15 @@
 
   // Wrap each <pre> so the button sits on a box that does not scroll with the code.
   function enhance() {
-    document.querySelectorAll('.markdown-preview pre:not([data-claude-copy])').forEach((pre) => {
-      pre.setAttribute('data-claude-copy', '');
+    document.querySelectorAll('.markdown-preview pre:not([data-velin-copy])').forEach((pre) => {
+      pre.setAttribute('data-velin-copy', '');
       const wrap = document.createElement('div');
-      wrap.className = 'claude-code-wrap';
+      wrap.className = 'velin-code-wrap';
       pre.parentNode.insertBefore(wrap, pre);
       wrap.appendChild(pre);
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = 'claude-copy-btn';
+      button.className = 'velin-copy-btn';
       setState(button, 'copy');
       wrap.appendChild(button);
     });
@@ -96,7 +96,7 @@
   // Handle the press on window in the capture phase, before anything in the preview can
   // swallow it or re-render; pointerdown already counts as a user gesture for copying.
   function onPress(event) {
-    const button = event.target instanceof Element && event.target.closest('.claude-copy-btn');
+    const button = event.target instanceof Element && event.target.closest('.velin-copy-btn');
     if (!button) return;
     event.preventDefault();
     event.stopImmediatePropagation();

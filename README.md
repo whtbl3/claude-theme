@@ -1,101 +1,93 @@
-# Claude Theme
+<p align="center"><img src="images/icon.png" width="128" alt="Velin logo"></p>
 
-Theme VS Code tông màu kiểu Claude: nền than ấm, chữ kem, màu nhấn cam `#ea9a78`. Extension kèm theo style cùng tông cho [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) (MPE).
+# Velin
 
-| Claude Dark | Claude Dimmed |
+Warm, low-glare dark themes for VS Code: charcoal backgrounds, cream text and a soft clay-orange accent. Everything is drawn from one fixed **18-color palette**, in the spirit of Nord.
+
+| Velin Dark | Velin Dimmed |
 | --- | --- |
-| ![Claude Dark](images/claude-dark.svg) | ![Claude Dimmed](images/claude-dimmed.svg) |
+| ![Velin Dark](images/velin-dark.svg) | ![Velin Dimmed](images/velin-dimmed.svg) |
 
-## Tính năng
+## What you get
 
-- **Hai theme tối** cho giao diện, terminal (16 màu ANSI) và màu cú pháp, kể cả semantic token (Python/Pylance). Hai theme dùng cùng màu chữ và màu cú pháp, chỉ khác độ tối của nền:
-  - **Claude Dark**: nền tối, editor `#1a1a1a`.
-  - **Claude Dimmed**: nền xám ấm như claude.ai, editor `#262624`.
+- **Two color themes**, both using the same palette and syntax colors:
+  - **Velin Dark**: deep charcoal, editor `#1a1a1a`.
+  - **Velin Dimmed**: one step lighter, warm gray editor `#262624`.
+- **Full UI coverage**: editor, side bar, tabs, panels, peek view, diff and merge editors, debug, testing, notebooks, SCM graph and more. No surface falls back to VS Code's default blue or gray.
+- **Terminal colors included**: the 16 ANSI colors are part of the theme, so the integrated terminal picks them up as soon as you select Velin. Nothing extra to install.
+- **Syntax highlighting** tuned for Python, SQL and JavaScript/TypeScript, including semantic tokens (Pylance). Comments are not italic, because an italic `|` looks like `/` in many monospace fonts.
+- **Optional style for [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)**: a matching preview with a centered reading column and a **Copy** button on code blocks. See [Markdown Preview Enhanced](#markdown-preview-enhanced) below.
 
-  Comment không in nghiêng: dấu `|` in nghiêng của JetBrains Mono trông giống `/`.
-- **Style cho MPE** (`mpe/style.less`):
-  - Font Source Sans 3 / Source Serif 4 / JetBrains Mono, tải từ Google Fonts. Khi offline thì dùng font dự phòng có đủ dấu tiếng Việt.
-  - Cột chữ căn giữa.
-  - Code block cùng màu với editor, có nút **Copy** khi rê chuột (`mpe/copy-button.js`, nạp qua `mpe/head.html`).
-- **Lệnh `Claude Theme: Install Markdown Preview Enhanced Style`**, làm 3 việc:
-  - Ghi `style.less`, `head.html` và `copy-button.js` vào thư mục cấu hình global của MPE.
-  - Đặt `markdown-preview-enhanced.previewTheme` và `codeBlockTheme` thành `vscode.css`, bật `enablePreviewScripts` để nút Copy chạy được. Setting này cho phép preview chạy file `.js` được nạp bằng `<script src>` từ thư mục cấu hình MPE và từ project đang mở (chỉ khi workspace được tin cậy).
-  - Cho file `.md` mặc định mở bằng MPE.
+## Installation
 
-  Nếu đã có sẵn một `style.less` không phải của extension này, file đó được giữ lại thành `style.less.bak-<thời điểm>`.
-- **Khi khởi động:** nếu `style.less` do extension này cài trước đó thì tự cập nhật lên bản mới. Nếu chưa cài thì hỏi một lần cho mỗi phiên bản.
+1. Download the `.vsix` from the [Releases](https://github.com/whtbl3/velin/releases) page, or build it yourself (see [Build](#build)).
+2. In VS Code, run **Extensions: Install from VSIX...** and pick the file.
+3. Open the theme picker (`Ctrl+K Ctrl+T`) and choose **Velin Dark** or **Velin Dimmed**.
 
-## Bảng màu
+On WSL, SSH or Dev Containers, install it while connected to the remote, so the Markdown Preview Enhanced files land where that extension reads them.
 
-Giống Nord, cả hai theme dùng chung một bảng **18 màu** cố định, khai báo trong `palette.json`. Mọi màu trong theme (kể cả màu có độ trong) đều lấy từ bảng này; `node scripts/check-palette.js` báo lỗi nếu có màu lạc.
+## Markdown Preview Enhanced
 
-**Than** (nền, viền)
+Velin does **not** install Markdown Preview Enhanced (MPE) for you. MPE is a separate extension; install it from the Marketplace if you want the matching preview.
 
-| Tên | Màu | Claude Dark | Claude Dimmed |
+When MPE is installed, Velin asks once per version whether to apply its preview style. You can also run **Velin: Install Markdown Preview Enhanced Style** at any time. The command:
+
+- writes `style.less`, `head.html` and `copy-button.js` into MPE's global config folder (an existing file that Velin did not write is kept as `<name>.bak-<timestamp>`);
+- sets `markdown-preview-enhanced.previewTheme` and `codeBlockTheme` to `vscode.css`;
+- turns on `markdown-preview-enhanced.enablePreviewScripts`, which the Copy button needs. MPE then runs `.js` files referenced by `<script src>` from its config folder and from the open project, and only in trusted workspaces;
+- opens `.md` files with MPE by default.
+
+After that, Velin keeps the files it installed up to date on every startup.
+
+## Palette
+
+Both themes use the 18 colors in [`palette.json`](palette.json). Every color in the themes, including translucent ones, comes from this list, and `node scripts/check-palette.js` fails if one does not.
+
+**Charcoal**: backgrounds and borders
+
+| Name | Color | Velin Dark | Velin Dimmed |
 | --- | --- | --- | --- |
-| c0 | `#161615` | thanh bên, panel, terminal, code block | bóng đổ |
-| c1 | `#1a1a1a` | editor | thanh bên, panel, terminal |
-| c2 | `#262624` | popup, menu, ô nhập | editor |
-| c3 | `#30302e` | viền, đường gióng | popup, menu, ô nhập |
-| c4 | `#4a4743` | số dòng, đường gióng đang chọn | viền, số dòng |
+| c0 | `#161615` | side bar, panels, terminal, peek view | shadows |
+| c1 | `#1a1a1a` | editor | side bar, panels, terminal, peek view |
+| c2 | `#262624` | widgets, menus, inputs | editor |
+| c3 | `#30302e` | borders, indent guides | widgets, menus, inputs |
+| c4 | `#4a4743` | line numbers, active guide | borders, line numbers |
 
-**Kem** (chữ)
+**Cream**: text
 
-| Tên | Màu | Dùng cho |
+| Name | Color | Used for |
 | --- | --- | --- |
-| bright | `#f4f1ec` | chữ đậm, tiêu đề, tab đang mở |
-| text | `#e8e6e3` | chữ chính, biến, tham số |
-| muted | `#a8a29e` | chữ phụ, toán tử, dấu câu |
-| dim | `#8a847d` | comment, chữ mờ, placeholder |
+| bright | `#f4f1ec` | headings, bold text, active tab |
+| text | `#e8e6e3` | body text, variables, parameters |
+| muted | `#a8a29e` | secondary text, operators, punctuation |
+| dim | `#8a847d` | comments, inactive text, inlay hints |
 
-**Cam** (màu nhấn Claude, 2 màu)
+**Clay**: accent
 
-| Tên | Màu | Dùng cho |
+| Name | Color | Used for |
 | --- | --- | --- |
-| accent | `#ea9a78` | nút, con trỏ, viền focus, vùng chọn (có độ trong); từ khóa, decorator, `self`, link, key JSON |
-| surface | `#443027` | nền tab đang mở |
+| accent | `#ea9a78` | keywords, decorators, `self`, links, buttons, cursor, focus border, selections (translucent) |
+| surface | `#443027` | active tab background |
 
-**Đất** (cú pháp, trạng thái)
+**Earth**: syntax and status
 
-| Tên | Màu | Dùng cho |
+| Name | Color | Used for |
 | --- | --- | --- |
-| yellow | `#ebcb8b` | tên hàm, số, `True`/`None`, cảnh báo, ngoặc cấp 1 |
-| green | `#a7bd86` | string, git thêm |
-| teal | `#94c7bb` | class |
-| blue | `#6c9fc4` | thông tin |
-| rose | `#d98a9a` | hằng số viết hoa, ngoặc cấp 2 |
-| purple | `#c6a5c1` | kiểu có sẵn (`int`, `str`, `dict`), ngoặc cấp 3 |
-| red | `#bf616a` | lỗi, git xóa |
+| yellow | `#ebcb8b` | function names, numbers, `True`/`None`, warnings, bracket level 1 |
+| green | `#a7bd86` | strings, added lines, passing tests |
+| teal | `#94c7bb` | classes |
+| blue | `#6c9fc4` | info, terminal blue |
+| rose | `#d98a9a` | `UPPER_CASE` constants, bracket level 2, terminal magenta |
+| purple | `#c6a5c1` | built-in types (`int`, `str`, `dict`), bracket level 3 |
+| red | `#bf616a` | errors, deleted lines, failing tests |
 
-Terminal (16 màu ANSI) cũng lấy từ bảng: black `c3`/`dim`, red `red`, green `green`, yellow `yellow`, blue `blue`, magenta `rose`, cyan `teal`, white `text`/`bright`.
+## Notes
 
-## Cài đặt
-
-1. Tải file `.vsix` từ trang Releases, hoặc tự build theo hướng dẫn bên dưới.
-2. Trong VS Code: Command Palette, chạy **Extensions: Install from VSIX...**, chọn file `.vsix`.
-3. Chọn theme: `Ctrl+K Ctrl+T`, chọn **Claude Dark** hoặc **Claude Dimmed**.
-4. Nếu dùng MPE: bấm **Install** khi được hỏi, hoặc chạy lệnh **Claude Theme: Install Markdown Preview Enhanced Style**.
-
-Extension chạy cùng phía với MPE (`extensionKind: workspace`). Trên WSL / Remote, hãy cài khi đang kết nối remote để style được ghi vào đúng thư mục mà MPE đọc.
-
-## Build
-
-Cần Node 22 trở lên. Không cần `npm install`.
-
-```bash
-node scripts/build-vsix.js       # tạo dist/claude-theme-<version>.vsix
-node scripts/render-preview.js   # vẽ lại images/*.svg từ file theme
-```
-
-Script tự đóng gói `.vsix` (zip + manifest) mà không dùng `@vscode/vsce`. Nếu muốn đưa lên Marketplace thì dùng `vsce package` / `vsce publish` như bình thường.
-
-## Ghi chú kỹ thuật
-
-- **Màu tab đang mở với giao diện "modern":** ở kiểu tab "connected" (mặc định), VS Code bỏ qua màu tab trong theme, tab đang mở lấy màu nền editor. Muốn tab có nền cam, thêm vào `settings.json`:
+- **Active tab with VS Code's modern tabs.** In the default *connected* style of the modern UI, VS Code ignores the theme's tab colors and paints the active tab like the editor. To get Velin's tab color there, add this to your user `settings.json`:
 
   ```jsonc
   "workbench.colorCustomizations": {
-    "[Claude Dark][Claude Dimmed]": {
+    "[Velin Dark][Velin Dimmed]": {
       "modernEditorTab.activeBackground": "#443027",
       "modernEditorTab.activeHoverBackground": "#443027",
       "tab.activeBorderTop": "#ea9a78"
@@ -103,16 +95,22 @@ Script tự đóng gói `.vsix` (zip + manifest) mà không dùng `@vscode/vsce`
   }
   ```
 
-  Với tab cổ điển hoặc kiểu `"pill"` (`workbench.experimental.modernUIEditorTabStyle`), theme tự áp màu này, không cần settings.
-- **Thư mục cấu hình MPE** được tìm giống cách MPE làm, theo thứ tự:
-  1. Setting `markdown-preview-enhanced.configPath`.
-  2. Windows: `~/.crossnote`.
-  3. `$XDG_CONFIG_HOME/crossnote`.
-  4. `~/.local/state/crossnote`.
-- **Căn giữa:** MPE đặt `margin: 0` cho khung preview bằng một selector mạnh hơn selector của style này. Vì vậy cột chữ được căn giữa bằng padding: `max(24px, calc((100% - 800px) / 2))`. Biểu thức này được bọc trong `~"..."` để LESS không tự tính `max()` lúc biên dịch.
-- **Font:** không dùng Georgia làm font dự phòng vì thiếu các chữ tiếng Việt như ặ, ữ, ộ.
-- **Opacity:** theme preview `vscode.css` của MPE làm mờ blockquote, h6 và chữ gạch ngang bằng `opacity`. Style này đặt lại `opacity: 1`.
+  Classic tabs and the `"pill"` style (`workbench.experimental.modernUIEditorTabStyle`) use the theme colors directly.
+- **MPE config folder.** Velin finds it the same way MPE does: the `markdown-preview-enhanced.configPath` setting, then `~/.crossnote` on Windows, then `$XDG_CONFIG_HOME/crossnote`, then `~/.local/state/crossnote`.
+- **Preview fonts.** The preview loads Source Sans 3, Source Serif 4 and JetBrains Mono from Google Fonts and falls back to system fonts with full Vietnamese coverage when offline.
 
-## Ghi công
+## Build
 
-Bảng màu và cách trình bày preview được chuyển từ extension [Claude Style Markdown Preview](https://github.com/ibank/claude-style-markdown-preview) (MIT).
+Requires Node 22 or later. No `npm install` needed.
+
+```bash
+node scripts/build-vsix.js       # writes dist/velin-<version>.vsix
+node scripts/render-preview.js   # redraws images/velin-*.svg from the theme files
+node scripts/check-palette.js    # checks that every color is in palette.json
+```
+
+`build-vsix.js` packages the extension without `@vscode/vsce`. Use `vsce package` / `vsce publish` if you want to publish to the Marketplace.
+
+## Credits
+
+The preview styling started from [Claude Style Markdown Preview](https://github.com/ibank/claude-style-markdown-preview) (MIT).
